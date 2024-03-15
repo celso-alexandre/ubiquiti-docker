@@ -14,9 +14,9 @@ services:
   unifi-app:
     image: lscr.io/linuxserver/unifi-network-application:latest
     container_name: unifi-app
-    network_mode: host
-    # depends_on:
-    #   - unifi-mongo
+    network_mode: bridge
+    depends_on:
+      - unifi-mongo
     volumes:
       - ./volume/app/config:/config
     environment:
@@ -26,7 +26,8 @@ services:
       - MONGO_USER=unifi
       - MONGO_PASS=unifi
       # - MONGO_HOST=unifi-mongo
-      - MONGO_HOST=localhost
+      - MONGO_HOST=192.168.0.108
+      # - MONGO_HOST=192.168.0.111
       - MONGO_PORT=27017
       - MONGO_DBNAME=unifi
       # - MEM_LIMIT=1024
